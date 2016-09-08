@@ -22,7 +22,8 @@ function register (angular) {
       var dropIndex;
       var sourceModel;
       drake.on('remove',function removeModel (el, source) {
-        if (!drake.models) {
+        if (!drake.models || drake.skipModelSync) {
+          drake.skipModelSync = false;
           return;
         }
         sourceModel = drake.models[drake.containers.indexOf(source)];
@@ -36,7 +37,8 @@ function register (angular) {
         dragIndex = domIndexOf(el, source);
       });
       drake.on('drop',function dropModel (dropElm, target, source) {
-        if (!drake.models) {
+        if (!drake.models || drake.skipModelSync) {
+          drake.skipModelSync = false;
           return;
         }
         dropIndex = domIndexOf(dropElm, target);
